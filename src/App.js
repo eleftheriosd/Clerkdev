@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./App.css";
 
 import CardContainer from "./components/CardContainer";

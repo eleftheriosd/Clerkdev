@@ -49,30 +49,29 @@ const CardContainer = ({ color }) => {
   }, [usersToRender]);
 
   return (
-    <div className="mt-5 d-flex justify-content-center">
-      <div>
-        <Pagination
-          activePage={activePage}
-          itemsCountPerPage={window.innerWidth <= 760 ? 1 : 3}
-          totalItemsCount={data ? data.results.length : 0}
-          pageRangeDisplayed={1}
-          hideFirstLastPages={true}
-          onChange={(pageNumber) => handlePageChange(pageNumber)}
-        />
+    <div>
+      <div className="mt-5 d-flex justify-content-center">
+        {loading
+          ? "Loading..."
+          : usersToRender.map((user) => {
+              return (
+                <Card
+                  className="col"
+                  key={user.id.value ? user.id.value : user.registered.date}
+                  user={user}
+                  color={color}
+                />
+              );
+            })}
       </div>
-
-      {loading
-        ? "Loading..."
-        : usersToRender.map((user) => {
-            return (
-              <Card
-                className="col"
-                key={user.id.value ? user.id.value : user.registered.date}
-                user={user}
-                color={color}
-              />
-            );
-          })}
+      <Pagination
+        activePage={activePage}
+        itemsCountPerPage={window.innerWidth <= 760 ? 1 : 3}
+        totalItemsCount={data ? data.results.length : 0}
+        pageRangeDisplayed={1}
+        hideFirstLastPages={true}
+        onChange={(pageNumber) => handlePageChange(pageNumber)}
+      />
     </div>
   );
 };
