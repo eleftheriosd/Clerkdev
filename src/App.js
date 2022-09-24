@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Fragment, useEffect, useState } from "react";
+import "./App.css";
+import Card from "./components/Card";
 
 function App() {
+  const [color, setColor] = useState("red");
+
+  useEffect(() => {
+    window.localStorage.setItem("color", color);
+  }, [color]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <h1 className="text-center"> My Clerks</h1>
+      <div className="text-center">
+        <div className="d-flex justify-content-center">
+          <p> Card Background color</p>
+          <input type="" name="Card-color" value={color} />
+        </div>
+      </div>
+      <div className="mt-5">
+        <Card name={"Foo"} color={color} />
+      </div>
+    </Fragment>
   );
 }
 
