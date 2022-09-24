@@ -49,16 +49,12 @@
   display: flex;
 }
 
-.bg-blue {
-  background-color: #5555ff;
-}
-
-.bg-red {
-  background-color: #ff5555;
-}
-
 .mt-2 {
   margin-top: 0.6rem;
+}
+
+.ml-2 {
+  margin-left: 0.6rem;
 }
 
 .mt-5 {
@@ -101,4 +97,8 @@
 
 .justify-content-center {
   justify-content: center;
+}
+
+.color-choice {
+  border: 0;
 }

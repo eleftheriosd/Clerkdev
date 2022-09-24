@@ -4,7 +4,10 @@ import imagePlaceHolder from "../images/user-placeholder.png";
 const Card = ({ user, color }) => {
   const { name, email, phone, picture, location } = user;
   return (
-    <div className={`pb-2 mx-3 bg-${color ? color : "blue"}`}>
+    <div
+      className="pb-2 mx-3"
+      style={{ backgroundColor: `${color ? color : "blue"}` }}
+    >
       <img
         className="w-20 pt-2 d-flex mx-auto radius-50"
         src={`${picture.medium ? picture.medium : imagePlaceHolder}`}
