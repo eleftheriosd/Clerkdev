@@ -79,16 +79,41 @@
   padding-top: 0.6rem;
 }
 
+.pl-1 {
+  padding-left: 0.3rem;
+}
+
+.pl-2 {
+  padding-left: 0.6rem;
+}
+
 .pl-3 {
   padding-left: 0.9rem;
+}
+
+.p-1 {
+  padding: 0.3rem;
 }
 
 .border {
   border: 1px solid #333;
 }
 
+.border-0 {
+  border: 0px;
+}
+
 .radius-50 {
   border-radius: 50%;
+}
+
+.outline-0 {
+  outline: 0;
+}
+
+/* Remove border inside color input */
+input::-webkit-color-swatch {
+  border: none;
 }
 
 .align-items-center {
@@ -100,5 +125,29 @@
 }
 
 .color-choice {
-  border: 0;
+  transform: rotate(45deg);
+  width: 15px;
+  height: 15px;
+  padding: 4px;
+  cursor: pointer;
+}
+* {
+  color: #333;
+}
+
+.container {
+  max-width: 1080px;
+  margin: auto;
+}
+
+.col {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  -ms-flex-preferred-size: 0;
+  flex-basis: 0;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  max-width: 100%;
 }

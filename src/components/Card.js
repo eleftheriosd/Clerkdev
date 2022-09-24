@@ -5,11 +5,13 @@ const Card = ({ user, color }) => {
   const { name, email, phone, picture, location } = user;
   return (
     <div
-      className="pb-2 mx-3"
+      className="pb-2 mx-3 col"
       style={{ backgroundColor: `${color ? color : "blue"}` }}
     >
       <img
-        className="w-20 pt-2 d-flex mx-auto radius-50"
+        className="pt-2 d-flex mx-auto radius-50"
+        height="55"
+        width="55"
         src={`${picture.medium ? picture.medium : imagePlaceHolder}`}
         alt={`${name ? name : "User picture"}`}
       />

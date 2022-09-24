@@ -7,7 +7,14 @@ const CardContainer = ({ loading, usersToRender, color }) => {
       {loading
         ? "Loading..."
         : usersToRender.map((user) => {
-            return <Card key={user.id.value} user={user} color={color} />;
+            return (
+              <Card
+                className="col"
+                key={user.id.value}
+                user={user}
+                color={color}
+              />
+            );
           })}
     </div>
   );
