@@ -91,6 +91,10 @@
   border: 1px solid #333;
 }
 
+.radius-50 {
+  border-radius: 50%;
+}
+
 .align-items-center {
   align-items: center;
 }
