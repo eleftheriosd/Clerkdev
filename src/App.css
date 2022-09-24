@@ -156,3 +156,7 @@ input::-webkit-color-swatch {
   flex-grow: 1;
   max-width: 100%;
 }
+
+.bg-white {
+  background-color: #fff;
+}

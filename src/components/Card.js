@@ -4,10 +4,7 @@ import imagePlaceHolder from "../images/user-placeholder.png";
 const Card = ({ user, color }) => {
   const { name, email, phone, picture, location } = user;
   return (
-    <div
-      className="pb-2 mx-3 col"
-      style={{ backgroundColor: `${color ? color : "blue"}` }}
-    >
+    <div className="pb-2 mx-3 col bg-white border">
       <img
         className="pt-2 d-flex mx-auto radius-50"
         height="55"
@@ -15,18 +12,30 @@ const Card = ({ user, color }) => {
         src={`${picture.medium ? picture.medium : imagePlaceHolder}`}
         alt={`${name ? name : "User picture"}`}
       />
-      <div className="border mx-3 mt-2">
+      <div
+        className="border mx-3 mt-2"
+        style={{ backgroundColor: `${color ? color : "white"}` }}
+      >
         <p className="pl-3">
           {name ? `${name.title} ${name.first} ${name.last}` : "UserName"}
         </p>
       </div>
-      <div className="border mx-3 mt-2">
+      <div
+        className="border mx-3 mt-2"
+        style={{ backgroundColor: `${color ? color : "white"}` }}
+      >
         <p className="pl-3">{email ? email : "User Email"}</p>
       </div>
-      <div className="border mx-3 mt-2">
+      <div
+        className="border mx-3 mt-2"
+        style={{ backgroundColor: `${color ? color : "white"}` }}
+      >
         <p className="pl-3">{phone ? phone : "Phone Number"}</p>
       </div>
-      <div className="border mx-3 mt-2">
+      <div
+        className="border mx-3 mt-2"
+        style={{ backgroundColor: `${color ? color : "white"}` }}
+      >
         <p className="pl-3">
           {location ? `${location.country}, ${location.city}` : "User Location"}
         </p>

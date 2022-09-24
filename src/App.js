@@ -6,12 +6,6 @@ import CardContainer from "./components/CardContainer";
 function App() {
   const [color, setColor] = useState("fff");
 
-  const [data, setData] = useState("");
-
-  const [usersToRender, setUsersToRender] = useState([{}]);
-
-  const [loading, setLoading] = useState(true);
-
   const handleColorChange = (color) => {
     window.localStorage.setItem("color", color);
     setColor(color);
@@ -20,25 +14,7 @@ function App() {
   useEffect(() => {
     window.localStorage.getItem("color") &&
       setColor(window.localStorage.getItem("color"));
-
-    fetch('https://randomuser.me/api/?response="json"&results=6')
-      .then((response) => response.json())
-      .then((data) => setData(data));
   }, []);
-
-  useEffect(() => {
-    if (data) {
-      //Mobile Render only 1 user
-      if (window.innerWidth <= 760) {
-        setUsersToRender([data.results[0]]);
-      } else {
-        // Desktop Render 3 users
-        setUsersToRender([data.results[0], data.results[1], data.results[2]]);
-      }
-
-      setLoading(false);
-    }
-  }, [data]);
 
   return (
     <Fragment>
@@ -71,11 +47,7 @@ function App() {
         </div>
       </div>
       <div className="container">
-        <CardContainer
-          usersToRender={usersToRender}
-          loading={loading}
-          color={color}
-        />
+        <CardContainer color={color} />
       </div>
     </Fragment>
   );
