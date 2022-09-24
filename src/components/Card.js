@@ -17,19 +17,18 @@ const Card = ({ user, color }) => {
       />
       <div className="border mx-3 mt-2">
         <p className="pl-3">
-          Name: {name ? `${name.title},${name.first},${name.last}` : "UserName"}
+          {name ? `${name.title} ${name.first} ${name.last}` : "UserName"}
         </p>
       </div>
       <div className="border mx-3 mt-2">
-        <p className="pl-3">Email: {email ? email : "User Email"}</p>
+        <p className="pl-3">{email ? email : "User Email"}</p>
       </div>
       <div className="border mx-3 mt-2">
-        <p className="pl-3">Phone: {phone ? phone : "Phone Number"}</p>
+        <p className="pl-3">{phone ? phone : "Phone Number"}</p>
       </div>
       <div className="border mx-3 mt-2">
         <p className="pl-3">
-          Location:{" "}
-          {location ? `${location.country},${location.city}` : "User Location"}
+          {location ? `${location.country}, ${location.city}` : "User Location"}
         </p>
       </div>
     </div>
