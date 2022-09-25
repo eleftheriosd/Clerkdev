@@ -103,6 +103,9 @@ code {
 .border {
   border: 1px solid #333;
 }
+.border-light-gray {
+  border: 1px solid #bbb;
+}
 
 .border-0 {
   border: 0px;
@@ -159,4 +162,12 @@ input::-webkit-color-swatch {
 
 .bg-white {
   background-color: #fff;
+}
+
+.pagination li:last-child {
+  position: absolute;
+  right: 10%;
+  top: 45%;
+  font-size: 50px;
+  list-style-type: none;
 }

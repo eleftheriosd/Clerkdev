@@ -24,7 +24,7 @@ function App() {
           <p>
             <b>Card Background color: </b>
           </p>
-          <div className="ml-2 d-flex border p-1">
+          <div className="ml-2 d-flex border-light-gray p-1">
             <input
               type="text"
               className="border-0 pl-1 outline-0"
@@ -36,8 +36,8 @@ function App() {
             <input
               type="color"
               name="card-color"
-              style={{ background: `${color}`, border: "1px solid #333" }}
-              className="color-choice border-0"
+              style={{ background: `${color}` }}
+              className="color-choice border-0 border-light-gray"
               onChange={(e) => {
                 handleColorChange(e.target.value);
               }}

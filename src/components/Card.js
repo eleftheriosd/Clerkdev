@@ -4,7 +4,7 @@ import imagePlaceHolder from "../images/user-placeholder.png";
 const Card = ({ user, color }) => {
   const { name, email, phone, picture, location } = user;
   return (
-    <div className="pb-2 mx-3 col bg-white border">
+    <div className="pb-2 mx-3 col bg-white border-light-gray">
       <img
         className="pt-2 d-flex mx-auto radius-50"
         height="55"
@@ -13,7 +13,7 @@ const Card = ({ user, color }) => {
         alt={`${name ? name : "User picture"}`}
       />
       <div
-        className="border mx-3 mt-2"
+        className="border-light-gray mx-3 mt-2"
         style={{ backgroundColor: `${color ? color : "white"}` }}
       >
         <p className="pl-3">
@@ -21,19 +21,19 @@ const Card = ({ user, color }) => {
         </p>
       </div>
       <div
-        className="border mx-3 mt-2"
+        className="border-light-gray mx-3 mt-2"
         style={{ backgroundColor: `${color ? color : "white"}` }}
       >
         <p className="pl-3">{email ? email : "User Email"}</p>
       </div>
       <div
-        className="border mx-3 mt-2"
+        className="border-light-gray mx-3 mt-2"
         style={{ backgroundColor: `${color ? color : "white"}` }}
       >
         <p className="pl-3">{phone ? phone : "Phone Number"}</p>
       </div>
       <div
-        className="border mx-3 mt-2"
+        className="border-light-gray mx-3 mt-2"
         style={{ backgroundColor: `${color ? color : "white"}` }}
       >
         <p className="pl-3">
