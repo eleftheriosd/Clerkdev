@@ -1,7 +1,9 @@
-import React from "react";
-import imagePlaceHolder from "../images/user-placeholder.png";
+import React, { ReactElement } from "react";
+import imagePlaceHolder from "../../images/user-placeholder.png";
 
-const Card = ({ user, color }) => {
+import { CardProps } from "./types";
+
+const Card: React.FC<CardProps> = ({ user, color }): ReactElement => {
   const { name, email, phone, picture, location } = user;
   return (
     <div className="pb-2 mx-3 col bg-white border-light-gray">

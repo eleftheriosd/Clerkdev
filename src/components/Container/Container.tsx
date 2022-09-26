@@ -1,19 +1,17 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./App.css";
+import CardContainer from "../CardContainer/CardContainer";
 
-import CardContainer from "./components/CardContainer";
+const Container = () => {
+  const [color, setColor] = useState<string>("fff");
 
-function App() {
-  const [color, setColor] = useState("fff");
-
-  const handleColorChange = (color) => {
+  const handleColorChange = (color: string) => {
     window.localStorage.setItem("color", color);
     setColor(color);
   };
 
   useEffect(() => {
     window.localStorage.getItem("color") &&
-      setColor(window.localStorage.getItem("color"));
+      setColor(window.localStorage.getItem("color") as string);
   }, []);
 
   return (
@@ -51,6 +49,6 @@ function App() {
       </div>
     </Fragment>
   );
-}
+};
 
-export default App;
+export default Container;
