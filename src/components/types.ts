@@ -2,6 +2,8 @@
 // Currently supported API params are:
 export interface IGetUserDataApiParams {
   results?: number;
+  page?: number;
+  seed?: number;
   fields?: Array<IUserFields>;
   noinfo?: string;
 }

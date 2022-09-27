@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import Card from "../Card/Card";
-import Pagination from "react-js-pagination";
 import { getUserData } from "../CardContainer/utils/getUserData";
-import { IUserDataNorm } from "../types";
+import { IGetUserDataApiParams, IUserDataNorm } from "../types";
 import { ICardContainerProps } from "./types";
+import Spinner from "../../images/spinner.svg";
 
 const CardContainer = ({ color }: ICardContainerProps) => {
   const [data, setData] = useState<IUserDataNorm[]>([]);
@@ -12,23 +12,43 @@ const CardContainer = ({ color }: ICardContainerProps) => {
 
   const [activePage, setActivePage] = useState<number>(1);
 
+  // Default API Request Values
+  const [apiRequestData, setApiRequestData] = useState<IGetUserDataApiParams>({
+    results: 21,
+    page: 1,
+  });
+
   const [usersToRender, setUsersToRender] = useState<IUserDataNorm[]>([]);
+  let resultsPerPage = 1;
+
+  if (window.innerWidth > 760) {
+    resultsPerPage = 3;
+  }
 
   useEffect(() => {
-    getUserData()
-      .then((data: IUserDataNorm[]) => {
-        setData(data);
-        console.log(data);
+    getUserData(apiRequestData)
+      .then((resData: IUserDataNorm[]) => {
+        let tempData = data.concat(resData);
+        setData(tempData);
       })
       .catch((err) => {
         // Load Error Page Or Alert User
         console.log(err);
       });
-  }, []);
+    // TODO
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [apiRequestData]);
 
-  const handlePageChange = (pageNumber: number) => {
-    setActivePage(pageNumber);
-  };
+  useEffect(() => {
+    if (apiRequestData.results && apiRequestData.page) {
+      if (
+        apiRequestData.results * apiRequestData.page <
+        activePage * resultsPerPage
+      ) {
+        setApiRequestData({ ...apiRequestData, page: apiRequestData.page + 1 });
+      }
+    }
+  }, [apiRequestData, resultsPerPage, activePage]);
 
   useEffect(() => {
     if (data) {
@@ -51,32 +71,47 @@ const CardContainer = ({ color }: ICardContainerProps) => {
   }, [data, activePage]);
 
   useEffect(() => {
-    if (usersToRender) {
+    if (usersToRender.length > 0) {
       setLoading(false);
+    } else {
+      setLoading(true);
     }
   }, [usersToRender]);
+
+  const handlePrevious = () => {
+    if (activePage > 1) {
+      setActivePage(activePage - 1);
+    }
+  };
+
+  const handleNext = () => {
+    setActivePage(activePage + 1);
+  };
 
   return (
     <div>
       <div className="mt-5 d-flex justify-content-center">
-        {loading
-          ? "Loading..."
-          : usersToRender.map((user: IUserDataNorm) => {
-              return (
-                <div key={user.id?.value ?? user?.email} className="col">
-                  <Card user={user} color={color} />
-                </div>
-              );
-            })}
+        {loading ? (
+          <Fragment>
+            {/* Could Also be a Custom Component To Apply more logic */}
+            <img src={Spinner} alt="Loading Data..." />
+          </Fragment>
+        ) : (
+          usersToRender.map((user: IUserDataNorm) => {
+            return (
+              <div key={user.id?.value ?? user?.email} className="col">
+                <Card user={user} color={color} />
+              </div>
+            );
+          })
+        )}
       </div>
-      <Pagination
-        activePage={activePage}
-        itemsCountPerPage={window.innerWidth <= 760 ? 1 : 3}
-        totalItemsCount={data.length}
-        pageRangeDisplayed={1}
-        hideFirstLastPages={true}
-        onChange={(pageNumber) => handlePageChange(pageNumber)}
-      />
+      <button className="prev" onClick={handlePrevious}>
+        Prev
+      </button>
+      <button className="next" onClick={handleNext}>
+        NEXT
+      </button>
     </div>
   );
 };

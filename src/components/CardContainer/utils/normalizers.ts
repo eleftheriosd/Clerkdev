@@ -17,6 +17,5 @@ export const normalizeUserData = (
       picture: {
         medium: userData.picture.medium,
       },
-      //Ommit
     };
   });

@@ -12,8 +12,6 @@ Jest for testing/ Check browserStuff
 
 URL Param's To Store Current page in URL, url param
 
-Normalize Before Saving data To State
-
 // TODO Check how to declare response in TS API 14
 
 // TODO api 18

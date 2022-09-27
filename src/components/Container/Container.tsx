@@ -1,21 +1,21 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardContainer from "../CardContainer/CardContainer";
 
 const Container = () => {
-  const [color, setColor] = useState<string>("fff");
-
-  const handleColorChange = (color: string) => {
-    window.localStorage.setItem("color", color);
-    setColor(color);
-  };
+  const [color, setColor] = useState<string>("#aaaaaa");
 
   useEffect(() => {
     window.localStorage.getItem("color") &&
       setColor(window.localStorage.getItem("color") as string);
   }, []);
 
+  const handleColorChange = (color: string) => {
+    window.localStorage.setItem("color", color);
+    setColor(color);
+  };
+
   return (
-    <Fragment>
+    <div className="container">
       <h1 className="text-center"> My Clerks</h1>
       <div className="text-center">
         <div className="d-flex justify-content-center align-items-center">
@@ -30,6 +30,9 @@ const Container = () => {
               onChange={(e) => {
                 handleColorChange(e.target.value);
               }}
+              // onKeyDown={(e) => {
+              // Could also add custom validation on typing
+              // }}
             />
             <input
               type="color"
@@ -44,10 +47,8 @@ const Container = () => {
           </div>
         </div>
       </div>
-      <div className="container">
-        <CardContainer color={color} />
-      </div>
-    </Fragment>
+      <CardContainer color={color} />
+    </div>
   );
 };
 

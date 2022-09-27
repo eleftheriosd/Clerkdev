@@ -4,7 +4,9 @@ export const getUsersDataApi = (
   data?: IGetUserDataApiParams
 ): Promise<IResponseJsonData> =>
   fetch(
-    `https://randomuser.me/api/?response="json"&results=${data?.results ?? 9}&${
+    `https://randomuser.me/api/?response="json"&page=${data?.page ?? 1}&${
+      data?.seed ?? 1
+    }&results=${data?.results ?? 9}&${
       Array.isArray(data?.fields)
         ? "inc=" + data?.fields.join(",")
         : "inc=name,email,picture,phone,location,id"
