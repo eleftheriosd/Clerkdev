@@ -171,3 +171,39 @@ input::-webkit-color-swatch {
   font-size: 50px;
   list-style-type: none;
 }
+
+.next,
+.prev {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.next {
+  right: 5%;
+}
+
+.prev {
+  left: 10%;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 15px;
+  cursor: pointer;
+  background: transparent;
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}

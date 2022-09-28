@@ -6,9 +6,9 @@ import { CardProps } from "./types";
 const Card: React.FC<CardProps> = ({ user, color }): ReactElement => {
   const { name, email, phone, picture, location } = user;
   return (
-    <div className="pb-2 mx-3 col bg-white border-light-gray">
+    <div className="pb-2 mx-3 bg-white border-light-gray">
       <img
-        className="pt-2 d-flex mx-auto radius-50"
+        className="d-flex mx-auto radius-50 border-light-gray mt-2"
         height="55"
         width="55"
         src={`${picture.medium ? picture.medium : imagePlaceHolder}`}

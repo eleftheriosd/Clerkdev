@@ -88,6 +88,31 @@ const CardContainer = ({ color }: ICardContainerProps) => {
     setActivePage(activePage + 1);
   };
 
+  let touchstartX = 0;
+  let touchendX = 0;
+
+  function checkDirection() {
+    if (touchendX < touchstartX) {
+      handleNext();
+      return;
+    }
+    if (touchendX > touchstartX) {
+      handlePrevious();
+      return;
+    }
+  }
+
+  document.addEventListener("touchstart", (e) => {
+    touchstartX = e.changedTouches[0].screenX;
+    console.log("l");
+  });
+
+  document.addEventListener("touchend", (e) => {
+    touchendX = e.changedTouches[0].screenX;
+    console.log("f");
+    checkDirection();
+  });
+
   return (
     <div>
       <div className="mt-5 d-flex justify-content-center">
@@ -106,12 +131,22 @@ const CardContainer = ({ color }: ICardContainerProps) => {
           })
         )}
       </div>
-      <button className="prev" onClick={handlePrevious}>
-        Prev
-      </button>
-      <button className="next" onClick={handleNext}>
-        NEXT
-      </button>
+      {!loading ? (
+        <Fragment>
+          <button
+            className="prev arrow left bg-white"
+            style={{ borderColor: color }}
+            onClick={handlePrevious}
+          ></button>
+          <button
+            className="next arrow right bg-white"
+            style={{ borderColor: color }}
+            onClick={handleNext}
+          ></button>
+        </Fragment>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
