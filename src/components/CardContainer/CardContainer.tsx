@@ -3,6 +3,7 @@ import Card from "../Card/Card";
 import { getUserData } from "../CardContainer/utils/getUserData";
 import { IGetUserDataApiParams, IUserDataNorm } from "../types";
 import { ICardContainerProps } from "./types";
+import { useSwipeable } from "react-swipeable";
 import Spinner from "../../images/spinner.svg";
 
 const CardContainer = ({ color }: ICardContainerProps) => {
@@ -88,29 +89,15 @@ const CardContainer = ({ color }: ICardContainerProps) => {
     setActivePage(activePage + 1);
   };
 
-  let touchstartX = 0;
-  let touchendX = 0;
-
-  function checkDirection() {
-    if (touchendX < touchstartX) {
+  const handlers = useSwipeable({
+    onSwipedLeft: () => {
+      console.log("next");
       handleNext();
-      return;
-    }
-    if (touchendX > touchstartX) {
+    },
+    onSwipedRight: () => {
+      console.log("prev");
       handlePrevious();
-      return;
-    }
-  }
-
-  document.addEventListener("touchstart", (e) => {
-    touchstartX = e.changedTouches[0].screenX;
-    console.log("l");
-  });
-
-  document.addEventListener("touchend", (e) => {
-    touchendX = e.changedTouches[0].screenX;
-    console.log("f");
-    checkDirection();
+    },
   });
 
   return (
@@ -124,7 +111,11 @@ const CardContainer = ({ color }: ICardContainerProps) => {
         ) : (
           usersToRender.map((user: IUserDataNorm) => {
             return (
-              <div key={user.id?.value ?? user?.email} className="col">
+              <div
+                {...handlers}
+                key={user.id?.value ?? user?.email}
+                className="col"
+              >
                 <Card user={user} color={color} />
               </div>
             );
@@ -132,7 +123,7 @@ const CardContainer = ({ color }: ICardContainerProps) => {
         )}
       </div>
       {!loading ? (
-        <Fragment>
+        <div className="d-flex justify-content-center">
           <button
             className="prev arrow left bg-white"
             style={{ borderColor: color }}
@@ -143,7 +134,7 @@ const CardContainer = ({ color }: ICardContainerProps) => {
             style={{ borderColor: color }}
             onClick={handleNext}
           ></button>
-        </Fragment>
+        </div>
       ) : (
         ""
       )}

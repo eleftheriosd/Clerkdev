@@ -50,8 +50,17 @@ code {
   text-align: center;
 }
 
+@media only screen and (min-width: 600px) {
+  .d-sm-flex {
+    display: flex;
+  }
+}
+
 .d-flex {
   display: flex;
+}
+.d-i-flex {
+  display: inline-flex;
 }
 
 .mt-2 {
@@ -182,11 +191,11 @@ input::-webkit-color-swatch {
 }
 
 .next {
-  right: 5%;
+  right: 7%;
 }
 
 .prev {
-  left: 10%;
+  left: 7%;
 }
 
 .arrow {
@@ -206,4 +215,15 @@ input::-webkit-color-swatch {
 .right {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
+}
+
+@media only screen and (max-width: 1280px) {
+  .next,
+  .prev {
+    position: initial;
+    display: inline-block;
+    text-align: center;
+    margin: 25px 20px 0 20px;
+    padding: 10px;
+  }
 }
