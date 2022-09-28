@@ -8,11 +8,8 @@ import Spinner from "../../images/spinner.svg";
 
 const CardContainer = ({ color }: ICardContainerProps) => {
   const [data, setData] = useState<IUserDataNorm[]>([]);
-
   const [loading, setLoading] = useState<boolean>(true);
-
   const [activePage, setActivePage] = useState<number>(1);
-
   // Default API Request Values
   const [apiRequestData, setApiRequestData] = useState<IGetUserDataApiParams>({
     results: 21,
@@ -26,6 +23,7 @@ const CardContainer = ({ color }: ICardContainerProps) => {
     resultsPerPage = 3;
   }
 
+  // Effect that makes API request to Fetch Data
   useEffect(() => {
     getUserData(apiRequestData)
       .then((resData: IUserDataNorm[]) => {
@@ -40,6 +38,7 @@ const CardContainer = ({ color }: ICardContainerProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiRequestData]);
 
+  // Effect responsible for Handling API page
   useEffect(() => {
     if (apiRequestData.results && apiRequestData.page) {
       if (
@@ -51,6 +50,7 @@ const CardContainer = ({ color }: ICardContainerProps) => {
     }
   }, [apiRequestData, resultsPerPage, activePage]);
 
+  // Effect that Renders users based on Active page
   useEffect(() => {
     if (data) {
       let dataUsersToRender: IUserDataNorm[] = data.filter(
@@ -71,6 +71,7 @@ const CardContainer = ({ color }: ICardContainerProps) => {
     }
   }, [data, activePage]);
 
+  // Effect that triggers Loading Spinner based On UsersToRender Status
   useEffect(() => {
     if (usersToRender.length > 0) {
       setLoading(false);
@@ -89,13 +90,12 @@ const CardContainer = ({ color }: ICardContainerProps) => {
     setActivePage(activePage + 1);
   };
 
+  // Used Mainly on Mobile, Could prevent triggering on Desktop
   const handlers = useSwipeable({
     onSwipedLeft: () => {
-      console.log("next");
       handleNext();
     },
     onSwipedRight: () => {
-      console.log("prev");
       handlePrevious();
     },
   });
