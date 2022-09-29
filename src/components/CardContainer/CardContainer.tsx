@@ -1,31 +1,37 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, ReactElement, useEffect, useState } from "react";
 import Card from "../Card/Card";
+import PaginationButtons from "../PaginationButtons/PaginationButtons";
 import { getUserData } from "../CardContainer/utils/getUserData";
 import { IGetUserDataApiParams, IUserDataNorm } from "../types";
 import { ICardContainerProps } from "./types";
 import { useSwipeable } from "react-swipeable";
 import Spinner from "../../images/spinner.svg";
 
-const CardContainer = ({ color }: ICardContainerProps) => {
+const CardContainer: React.FC<ICardContainerProps> = ({
+  color,
+}): ReactElement => {
+  // State for storing data fetched as a whole
   const [data, setData] = useState<IUserDataNorm[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [activePage, setActivePage] = useState<number>(1);
   // Default API Request Values
-  const [apiRequestData, setApiRequestData] = useState<IGetUserDataApiParams>({
-    results: 21,
-    page: 1,
-  });
+  const [apiRequestParameters, setApiRequestData] =
+    useState<IGetUserDataApiParams>({
+      results: 21,
+      page: 1,
+    });
 
   const [usersToRender, setUsersToRender] = useState<IUserDataNorm[]>([]);
+  // Default screen Mobile
   let resultsPerPage = 1;
-
+  // On Desktop serve 3 results per page
   if (window.innerWidth > 760) {
     resultsPerPage = 3;
   }
 
   // Effect that makes API request to Fetch Data
   useEffect(() => {
-    getUserData(apiRequestData)
+    getUserData(apiRequestParameters)
       .then((resData: IUserDataNorm[]) => {
         let tempData = data.concat(resData);
         setData(tempData);
@@ -34,21 +40,23 @@ const CardContainer = ({ color }: ICardContainerProps) => {
         // Load Error Page Or Alert User
         console.log(err);
       });
-    // TODO
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiRequestData]);
+  }, [apiRequestParameters]);
 
   // Effect responsible for Handling API page
   useEffect(() => {
-    if (apiRequestData.results && apiRequestData.page) {
+    if (apiRequestParameters.results && apiRequestParameters.page) {
       if (
-        apiRequestData.results * apiRequestData.page <
+        apiRequestParameters.results * apiRequestParameters.page <
         activePage * resultsPerPage
       ) {
-        setApiRequestData({ ...apiRequestData, page: apiRequestData.page + 1 });
+        setApiRequestData({
+          ...apiRequestParameters,
+          page: apiRequestParameters.page + 1,
+        });
       }
     }
-  }, [apiRequestData, resultsPerPage, activePage]);
+  }, [apiRequestParameters, resultsPerPage, activePage]);
 
   // Effect that Renders users based on Active page
   useEffect(() => {
@@ -122,22 +130,12 @@ const CardContainer = ({ color }: ICardContainerProps) => {
           })
         )}
       </div>
-      {!loading ? (
-        <div className="d-flex justify-content-center">
-          <button
-            className="prev arrow left bg-white"
-            style={{ borderColor: color }}
-            onClick={handlePrevious}
-          ></button>
-          <button
-            className="next arrow right bg-white"
-            style={{ borderColor: color }}
-            onClick={handleNext}
-          ></button>
-        </div>
-      ) : (
-        ""
-      )}
+      <PaginationButtons
+        loading={loading}
+        color={color}
+        handlePrevious={handlePrevious}
+        handleNext={handleNext}
+      />
     </div>
   );
 };

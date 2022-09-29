@@ -2,11 +2,7 @@
 
 Check Eslint to add + TSconfig + Prettier + Webpack
 
-Use Styled Components / Tailwind
-
-Check unused resources and remove
-
-Check Image Borders
+TODO Use Styled Components / Tailwind
 
 Jest for testing/ Check browserStuff
 
@@ -22,5 +18,3 @@ URL Param's To Store Current page in URL, url param
 TODO export interface IGetUserDataApiResponse extends Response {
 results: number;
 }
-
-TODO: Improve CSS / Work on all screen sizes Improve Container Logic

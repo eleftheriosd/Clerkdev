@@ -1,6 +1,6 @@
 import { IUserDataNorm } from "../types";
 
-export interface CardProps {
+export interface ICardProps {
   user: IUserDataNorm;
   color: string;
 }
