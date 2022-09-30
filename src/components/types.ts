@@ -71,7 +71,7 @@ interface IUserFullName {
   title: string;
 }
 
-interface IUserPicture {
+export interface IUserPicture {
   large: string;
   medium: string;
   thumbnail: string;
