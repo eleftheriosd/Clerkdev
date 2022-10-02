@@ -109,27 +109,23 @@ const CardContainer: React.FC<ICardContainerProps> = ({
   });
 
   return (
-    <div>
-      <div className="mt-5 d-flex justify-content-center">
-        {loading ? (
-          <Fragment>
-            {/* Could Also be a Custom Component To Apply more logic */}
-            <img src={Spinner} alt="Loading Data..." />
-          </Fragment>
-        ) : (
-          usersToRender.map((user: IUserDataNorm) => {
+    <div className="mt-10 pt-10">
+      {loading ? (
+        <Fragment>
+          {/* Could Also be a Custom Component To Apply more logic */}
+          <img src={Spinner} className="mx-auto" alt="Loading Data..." />
+        </Fragment>
+      ) : (
+        <div className="md:max-w-6xl gap-5 lg:columns-3 mx-auto">
+          {usersToRender.map((user: IUserDataNorm) => {
             return (
-              <div
-                {...handlers}
-                key={user.id?.value ?? user?.email}
-                className="col"
-              >
+              <div {...handlers} key={user.id?.value ?? user?.email}>
                 <Card user={user} color={color} />
               </div>
             );
-          })
-        )}
-      </div>
+          })}
+        </div>
+      )}
       <PaginationButtons
         loading={loading}
         color={color}

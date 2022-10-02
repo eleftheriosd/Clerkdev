@@ -11,7 +11,7 @@ const PaginationButtons: React.FC<IPaginationButtonsProps> = ({
     return <></>;
   }
   return (
-    <div className="d-flex justify-content-center">
+    <div className="flex justify-center">
       <button
         className="prev arrow left bg-white"
         style={{ borderColor: color }}

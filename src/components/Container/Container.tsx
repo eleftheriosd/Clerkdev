@@ -16,14 +16,14 @@ const Container = () => {
   };
 
   return (
-    <div className="container">
-      <h1 className="text-center"> My Clerks</h1>
+    <div className="">
+      <h1 className="text-center mt-7 font-bold text-xl"> My Clerks</h1>
       <div className="text-center">
-        <div className="d-sm-flex justify-content-center align-items-center">
+        <div className="sm:flex justify-center items-center mt-7">
           <p>
             <b>Card Background color: </b>
           </p>
-          <div className="ml-2 d-i-flex border-light-gray p-1">
+          <div className="ml-2 inline-flex border-2 border-light-gray p-1">
             <input
               type="text"
               className="border-0 pl-1 outline-0"
@@ -39,7 +39,7 @@ const Container = () => {
               type="color"
               name="card-color"
               style={{ background: `${color}` }}
-              className="color-choice border-0"
+              className="color-choice border-0 mt-1 mr-1"
               onChange={(e) => {
                 handleColorChange(e.target.value);
               }}
