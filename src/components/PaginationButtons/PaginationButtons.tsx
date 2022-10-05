@@ -3,7 +3,6 @@ import { IPaginationButtonsProps } from "./types";
 
 const PaginationButtons: React.FC<IPaginationButtonsProps> = ({
   loading,
-  color,
   handlePrevious,
   handleNext,
 }): ReactElement => {
@@ -14,12 +13,10 @@ const PaginationButtons: React.FC<IPaginationButtonsProps> = ({
     <div className="flex justify-center">
       <button
         className="prev arrow left bg-white"
-        style={{ borderColor: color }}
         onClick={handlePrevious}
       ></button>
       <button
         className="next arrow right bg-white"
-        style={{ borderColor: color }}
         onClick={handleNext}
       ></button>
     </div>

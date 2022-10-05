@@ -1,17 +1,25 @@
-import React, { Fragment, ReactElement, useEffect, useState } from "react";
+import React, {
+  Fragment,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import Card from "../Card/Card";
 import PaginationButtons from "../PaginationButtons/PaginationButtons";
-import { getUserData } from "../CardContainer/utils/getUserData";
 import { IGetUserDataApiParams, IUserDataNorm } from "../types";
 import { ICardContainerProps } from "./types";
 import { useSwipeable } from "react-swipeable";
 import Spinner from "../../images/spinner.svg";
+import { getUsersToRender } from "./utils/getUsersToRender";
+import { handleLoading } from "./utils/handleLoading";
+import { useHandleApiRequest } from "./hooks/useHandleApiRequest";
 
 const CardContainer: React.FC<ICardContainerProps> = ({
   color,
 }): ReactElement => {
   // State for storing data fetched as a whole
-  const [data, setData] = useState<IUserDataNorm[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [activePage, setActivePage] = useState<number>(1);
   // Default API Request Values
@@ -21,82 +29,50 @@ const CardContainer: React.FC<ICardContainerProps> = ({
       page: 1,
     });
 
-  const [usersToRender, setUsersToRender] = useState<IUserDataNorm[]>([]);
-  // Default screen Mobile
-  let resultsPerPage = 1;
-  // On Desktop serve 3 results per page
-  if (window.innerWidth > 760) {
-    resultsPerPage = 3;
-  }
+  const data = useHandleApiRequest(apiRequestParameters);
 
-  // Effect that makes API request to Fetch Data
-  useEffect(() => {
-    getUserData(apiRequestParameters)
-      .then((resData: IUserDataNorm[]) => {
-        let tempData = data.concat(resData);
-        setData(tempData);
-      })
-      .catch((err) => {
-        // Load Error Page Or Alert User
-        console.log(err);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiRequestParameters]);
+  const [usersToRender, setUsersToRender] = useState<IUserDataNorm[]>([]);
 
   // Effect responsible for Handling API page
   useEffect(() => {
-    if (apiRequestParameters.results && apiRequestParameters.page) {
-      if (
-        apiRequestParameters.results * apiRequestParameters.page <
-        activePage * resultsPerPage
-      ) {
+    let { results, page } = apiRequestParameters;
+
+    if (results && page) {
+      // Default case 1 result per page
+      // On Desktop serve 3 results per page
+      if (results * page < activePage * (window?.innerWidth > 760 ? 3 : 1)) {
+        // Above if condition indicates that we need to
+        // increase the page number when hitting the API
+        // in order to get data from the next page
         setApiRequestData({
           ...apiRequestParameters,
-          page: apiRequestParameters.page + 1,
+          page: page + 1,
         });
       }
     }
-  }, [apiRequestParameters, resultsPerPage, activePage]);
+  }, [apiRequestParameters, activePage]);
 
   // Effect that Renders users based on Active page
   useEffect(() => {
     if (data) {
-      let dataUsersToRender: IUserDataNorm[] = data.filter(
-        (item: object, index: number) => {
-          if (window.innerWidth > 760) {
-            // Desktop
-            return (
-              index >= activePage * 2 + activePage - 3 &&
-              index <= activePage * 2 + activePage - 1
-            );
-          } else {
-            // Mobile
-            return index === activePage - 1;
-          }
-        }
-      );
-      setUsersToRender(dataUsersToRender);
+      setUsersToRender(getUsersToRender(data, activePage));
     }
   }, [data, activePage]);
 
   // Effect that triggers Loading Spinner based On UsersToRender Status
   useEffect(() => {
-    if (usersToRender.length > 0) {
-      setLoading(false);
-    } else {
-      setLoading(true);
-    }
+    setLoading(handleLoading(usersToRender));
   }, [usersToRender]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (activePage > 1) {
       setActivePage(activePage - 1);
     }
-  };
+  }, [activePage]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActivePage(activePage + 1);
-  };
+  }, [activePage]);
 
   // Used Mainly on Mobile, Could prevent triggering on Desktop
   const handlers = useSwipeable({
@@ -107,6 +83,16 @@ const CardContainer: React.FC<ICardContainerProps> = ({
       handlePrevious();
     },
   });
+
+  const PaginationB = useMemo((): ReactElement => {
+    return (
+      <PaginationButtons
+        loading={loading}
+        handlePrevious={handlePrevious}
+        handleNext={handleNext}
+      />
+    );
+  }, [handleNext, handlePrevious, loading]);
 
   return (
     <div className="mt-10 pt-10">
@@ -126,12 +112,7 @@ const CardContainer: React.FC<ICardContainerProps> = ({
           })}
         </div>
       )}
-      <PaginationButtons
-        loading={loading}
-        color={color}
-        handlePrevious={handlePrevious}
-        handleNext={handleNext}
-      />
+      <>{PaginationB}</>
     </div>
   );
 };

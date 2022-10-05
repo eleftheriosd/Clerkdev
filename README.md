@@ -1,20 +1,26 @@
-#TODOS
+# Welcome to My Clerks application!
 
-Check Eslint to add + TSconfig + Prettier + Webpack
+In order to run the project on your localhost Server make sure to run `npm-install` in order to install neccesary dependencies, and then
+`npm-start` in order to access the project at: `http://localhost:3000`.
 
-TODO Use Styled Components / Tailwind
+Hope you enjoy the evaluation!
 
-Jest for testing/ Check browserStuff
+## Improvements that could take place:
 
-URL Param's To Store Current page in URL, url param
+- Could also add a disable/hide functionality on previous button if user is on page 0.
+- Improve testing overall
+- Improve responsiveness
+- Add Animation on Card Swing
+- Disable Card Swing on Desktop
+- Include URL Param to restore User's State (current page)
 
-// TODO Check how to declare response in TS API 14
+## Points to highlight:
 
-// TODO api 18
+- Low prior experience in testing
+- Applied different ways in tackling problems e.g. fetch vs async/await to illustrate knowledge of both
+- Several comments are intentionally present in order to illustrate useful points.
+- Focused more on clean code, good code structure & performance.
 
-//Normalizers 18
-// todo check pick/ommit/partial interface Foo=> to User data
+## Prior to Shipping to Production
 
-TODO export interface IGetUserDataApiResponse extends Response {
-results: number;
-}
+- Would need to resolve CORS issue with the Api

@@ -16,7 +16,7 @@ const Container = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <h1 className="text-center mt-7 font-bold text-xl"> My Clerks</h1>
       <div className="text-center">
         <div className="sm:flex justify-center items-center mt-7">
